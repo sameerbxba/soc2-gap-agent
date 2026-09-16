@@ -81,8 +81,22 @@ class ActionTier:
             return Approval(True, "auto", "approval suppressed by --approve-all")
         return self.approver(tool_name, payload)
 
+    YES = {"y", "yes"}
+    NO = {"n", "no"}
+
     @staticmethod
     def _prompt(tool_name: str, payload: dict) -> Approval:
+        """Ask a person, and accept only an answer a person meant to give.
+
+        The first version of this treated any input that was not 'y' as a
+        decline. That is wrong for a control whose whole job is to record a
+        decision a human actually made: a stray keystroke, a pasted command or
+        a bumped return key all became a logged refusal that nobody chose.
+        Found by pasting the next command into a waiting prompt, which silently
+        declined a finding and wrote 'declined by operator' to the audit log.
+
+        Unrecognised input is now not an answer. The prompt repeats.
+        """
         print("\n  ── approval required ──────────────────────────────")
         print(f"  the agent wants to call: {tool_name}")
         for k, v in payload.items():
@@ -90,9 +104,21 @@ class ActionTier:
             if len(text) > 300:
                 text = text[:300] + " ..."
             print(f"    {k}: {text}")
-        answer = input("  approve? [y/N] ").strip().lower()
-        granted = answer in {"y", "yes"}
-        return Approval(granted, "interactive", "" if granted else "declined by operator")
+
+        while True:
+            try:
+                answer = input("  approve? [y/n] ").strip().lower()
+            except EOFError:
+                # No operator is present. An absent human is not an approval,
+                # but it is also not a decision, so it is logged as its own
+                # thing rather than as a refusal someone chose.
+                print("  no input available: treating as not approved")
+                return Approval(False, "interactive", "no operator input available")
+            if answer in ActionTier.YES:
+                return Approval(True, "interactive", "")
+            if answer in ActionTier.NO:
+                return Approval(False, "interactive", "declined by operator")
+            print("  answer y or n. Anything else is not an answer.")
 
 
 # ---------------------------------------------------------------- AC-3

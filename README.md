@@ -165,7 +165,9 @@ python -m agent.cli run --record data/replay/my_session.json
 ```
 
 Without `--approve-all` it stops at each write and shows you the finding, the
-verdict and the quote before anything is recorded. `--record` saves the run's
+verdict and the quote before anything is recorded. Approval is per action, so
+ten findings means ten prompts, and only `y` or `n` counts as an answer:
+anything else re-prompts rather than being recorded as a decision you made. `--record` saves the run's
 turns so it can be replayed later without the API.
 
 The replay provider is not only a cost saver. It makes the loop deterministic,
@@ -180,7 +182,7 @@ exercise against a non-deterministic model is a control you cannot test.
 python -m pytest tests/ -q
 ```
 
-Twenty-one tests, one or more per control, including an end-to-end run, a
+Twenty-four tests, one or more per control, including an end-to-end run, a
 declined approval, a hallucinated citation blocked before it reaches the
 register, a budget ceiling halting the loop mid-run, and a rollback that
 removes one run's rows and leaves another's. Each test corresponds to a claim

@@ -392,3 +392,37 @@ def test_tool_schemas_match_implemented_methods(requirements, document, tmp_path
     assert names == set(TOOL_TIERS)
     for name in names:
         assert callable(getattr(run.toolbox, name))
+
+
+# ------------------------------------------------------------------ AC-2 input
+def test_prompt_rejects_input_that_is_not_an_answer(monkeypatch, capsys):
+    """A pasted command is not a decline. It is not an answer at all."""
+    answers = iter(
+        [
+            "python -m agent.cli run --replay",  # pasted into a waiting prompt
+            "",                                   # bumped return key
+            "maybe",
+            "y",
+        ]
+    )
+    monkeypatch.setattr("builtins.input", lambda _: next(answers))
+    approval = ActionTier()._prompt("record_finding", {"requirement_id": "R-01"})
+    assert approval.granted
+    assert "not an answer" in capsys.readouterr().out
+
+
+def test_prompt_records_an_explicit_decline(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "n")
+    approval = ActionTier()._prompt("record_finding", {"requirement_id": "R-01"})
+    assert not approval.granted
+    assert approval.note == "declined by operator"
+
+
+def test_absent_operator_is_not_an_approval_and_not_a_decline(monkeypatch):
+    def raise_eof(_):
+        raise EOFError
+
+    monkeypatch.setattr("builtins.input", raise_eof)
+    approval = ActionTier()._prompt("record_finding", {"requirement_id": "R-01"})
+    assert not approval.granted
+    assert approval.note == "no operator input available"
