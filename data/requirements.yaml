@@ -1,0 +1,95 @@
+# Vendor control requirements.
+#
+# These represent the receiving organisation's own standard: what it requires of
+# a vendor before the vendor is approved to hold its data. The agent's job is to
+# decide, for each requirement, whether the vendor's SOC 2 report provides
+# evidence that the requirement is met, and to say so with a citation.
+#
+# Written here as fictional requirements of "Meridian Financial Group".
+
+organisation: Meridian Financial Group
+standard: Third Party Technology Control Standard
+version: "2026.1"
+fiscal_year_end: "2026-12-31"
+
+# Verdicts the agent is permitted to return. Anything else is rejected by the
+# tool schema, which keeps the output usable in a register rather than prose.
+allowed_verdicts:
+  - met                 # report provides evidence the requirement is satisfied
+  - partially_met       # design evidenced but operation not, or scope is narrower
+  - not_met             # report shows the requirement is not satisfied
+  - not_covered         # report does not address it at all, in or out of scope
+  - user_entity_control # satisfied only if we operate a control on our side
+
+requirements:
+  - id: R-01
+    title: Termination access revocation
+    text: >
+      Vendor must revoke all access for terminated personnel within one business
+      day of the termination effective date, and must evidence that this operated
+      throughout the examination period.
+    category: Access management
+
+  - id: R-02
+    title: Multi-factor authentication on privileged access
+    text: >
+      Vendor must enforce multi-factor authentication for all administrative and
+      remote access to systems holding Meridian data.
+    category: Access management
+
+  - id: R-03
+    title: Encryption of data at rest
+    text: >
+      Meridian data must be encrypted at rest using AES-256 or equivalent, and
+      the operating effectiveness of that control must have been tested.
+    category: Data protection
+
+  - id: R-04
+    title: Independent penetration testing
+    text: >
+      Vendor must undergo at least annual penetration testing performed by a
+      qualified independent third party, with findings tracked to remediation.
+    category: Security testing
+
+  - id: R-05
+    title: Availability monitoring and commitment
+    text: >
+      Vendor must monitor system availability against a stated commitment and
+      evidence that monitoring operated throughout the period.
+    category: Resilience
+
+  - id: R-06
+    title: Segregation of duties in change management
+    text: >
+      Production changes must be reviewed and deployed by an individual other
+      than the author of the change.
+    category: Change management
+
+  - id: R-07
+    title: Backup restoration testing
+    text: >
+      Vendor must test restoration from backup at least annually and evidence
+      the result of that test.
+    category: Resilience
+
+  - id: R-08
+    title: Subservice organisation coverage
+    text: >
+      Where the vendor relies on a subservice organisation, the controls of that
+      organisation must be covered by the report or separately evidenced.
+    category: Vendor management
+
+  - id: R-09
+    title: Examination period coverage
+    text: >
+      The examination period must cover Meridian's full fiscal year. Any gap
+      between the end of the examination period and Meridian's fiscal year end
+      must be identified.
+    category: Reliance
+
+  - id: R-10
+    title: Security incident notification
+    text: >
+      Vendor must commit to notifying Meridian of a confirmed security incident
+      affecting Meridian data within 72 hours of confirmation.
+    category: Incident response
