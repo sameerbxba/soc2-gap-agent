@@ -10,7 +10,7 @@ The interesting part is not that it reads the report. It is what it is stopped
 from doing.
 
 ```
-git clone <this repo> && cd soc2-gap-agent
+git clone https://github.com/sameerbxba/soc2-gap-agent.git && cd soc2-gap-agent
 pip install -r requirements.txt
 python -m agent.cli run --replay --approve-all
 ```
