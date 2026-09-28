@@ -4972,7 +4972,23 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       svg [data-node-id], svg [data-edge-from], svg [data-detail], svg [data-detail-anchor], svg [data-legend-hit], svg { transition: none !important; }
     }
   </style>
-<style id="site-overrides">.guided-view-chapter-delta,.source-evidence-beacon{display:none!important}</style></head>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><style id="site-overrides">
+.guided-view-chapter-delta,.source-evidence-beacon{display:none!important}
+.toolbar{position:absolute!important}
+.header-row{min-height:64px;align-items:center;gap:18px}
+.header-row h1{font-family:'Fraunces',Georgia,serif!important;font-weight:600!important;letter-spacing:-.02em}
+.back-link{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:500;color:inherit;opacity:.62;text-decoration:none;white-space:nowrap;border-left:1px solid currentColor;padding-left:16px;line-height:1.1}
+.back-link:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}
+.guided-views,.guided-views *:not(svg):not(svg *),.toolbar button,.toolbar a{font-family:'Inter',system-ui,sans-serif!important;letter-spacing:0!important}
+.cards,.cards *{font-family:'Inter',system-ui,sans-serif!important;letter-spacing:0!important}
+.cards h3{font-weight:600!important}
+@media (max-width:900px){
+.toolbar{position:static!important;display:flex!important;flex-wrap:wrap;gap:8px;justify-content:flex-start;padding:14px 16px 0!important;margin:0!important;width:auto!important}
+.toolbar button{font-size:13px!important;padding:7px 11px!important;min-height:0!important}
+.header-row{flex-wrap:wrap;min-height:0;row-gap:4px}
+.back-link{border-left:0;padding-left:0;flex-basis:100%;margin-left:20px}
+}
+</style></head>
 <body>
   <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
        Motion appears only for trace-enabled artifacts and has no shortcut;
@@ -5081,6 +5097,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
            data-preset-badge-editorial="EDITORIAL / FIELD NOTE">
         <div class="pulse-dot"></div>
         <h1>SOC 2 Control-Gap Agent</h1>
+        <a class="back-link" href="https://sameerbxba.github.io/case-soc2-agent.html">Read the case study &rarr;</a>
       </div>
     </div>
 
