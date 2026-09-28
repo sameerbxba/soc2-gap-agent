@@ -4974,7 +4974,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><style id="site-overrides">
 .guided-view-chapter-delta,.source-evidence-beacon{display:none!important}
-.header-row{min-height:56px;align-items:center;gap:16px;padding-right:170px}
+.header-row{min-height:56px;align-items:center;gap:16px;padding-right:120px}
 .header-row h1{font-family:'Fraunces',Georgia,serif!important;font-weight:600!important;letter-spacing:-.02em}
 .back-link{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:500;color:inherit;opacity:.62;text-decoration:none;white-space:nowrap;border-left:1px solid currentColor;padding-left:16px;line-height:1.1}
 .back-link:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}
@@ -5000,21 +5000,20 @@ html.menu-open .toolbar > button,html.menu-open .toolbar > div > button{width:10
 html.menu-open .toolbar > div{width:100%}
 html.menu-open .toolbar .toolbar-chevron{margin-left:auto}
 @media (max-width:640px){
-  .header-row{padding-right:64px;flex-wrap:wrap;row-gap:4px}
+  .header-row{padding-right:96px;flex-wrap:wrap;row-gap:4px}
   .back-link{border-left:0;padding-left:0;flex-basis:100%;margin-left:22px}
   .view-menu-btn{top:14px;right:14px;padding:9px 11px}
-  .view-menu-btn .lbl,.view-menu-btn .chev{display:none}
   html.menu-open .toolbar{top:58px!important;right:14px!important}
 }
 .header{padding-right:0!important}.header,.header-row{max-width:none!important;width:100%!important;box-sizing:border-box}
 .header-row{flex-wrap:wrap;row-gap:4px}
 .header-row h1{white-space:nowrap}
-@media (max-width:640px){.header-row{padding-right:64px}.header-row h1{white-space:normal}}</style></head>
+@media (max-width:640px){.header-row{padding-right:96px}.header-row h1{white-space:normal}}</style></head>
 <body>
   <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
        Motion appears only for trace-enabled artifacts and has no shortcut;
        Keyboard: T toggles theme, S cycles style, F toggles the stage, E opens export. -->
-  <button id="view-menu-btn" class="view-menu-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="diagram-options" aria-label="View options"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="lbl">View options</span><span class="chev" aria-hidden="true"></span></button>
+  <button id="view-menu-btn" class="view-menu-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="diagram-options" aria-label="Menu: theme, style, present and export"><span class="lbl">Menu</span><span class="chev" aria-hidden="true"></span></button>
     <div class="toolbar" id="diagram-options" role="toolbar" aria-label="Diagram actions">
     <button id="btn-theme" type="button"
             title="Toggle theme (T)"
