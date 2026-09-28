@@ -63,6 +63,23 @@ out of scope versus failed, and the vendor's control versus yours.
 
 ---
 
+## Architecture
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/architecture-dark.png">
+  <img src="docs/architecture-light.png" alt="Architecture of the SOC 2 control-gap agent: tool requests pass the allowlist, citation check and human approval before reaching the toolbox and gap register; a run budget can halt the loop and every event goes to an append-only audit log.">
+</picture>
+
+Every tool request from the model passes three checks before anything runs:
+the allowlist, the citation check, and a person's explicit yes or no. A run
+budget can halt the loop at any point, and every event is written to an
+append-only audit log.
+
+[Open the interactive diagram](https://sameerbxba.github.io/assets/soc2-architecture.html)
+to step through each path. The same file is in [`docs/architecture.html`](docs/architecture.html).
+
+---
+
 ## The loop
 
 The whole concept is about a hundred lines, in `agent/loop.py`:
