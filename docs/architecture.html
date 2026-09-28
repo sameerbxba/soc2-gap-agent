@@ -4974,26 +4974,48 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><style id="site-overrides">
 .guided-view-chapter-delta,.source-evidence-beacon{display:none!important}
-.toolbar{position:absolute!important}
-.header-row{min-height:64px;align-items:center;gap:18px}
+.header-row{min-height:56px;align-items:center;gap:16px;padding-right:170px}
 .header-row h1{font-family:'Fraunces',Georgia,serif!important;font-weight:600!important;letter-spacing:-.02em}
 .back-link{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:500;color:inherit;opacity:.62;text-decoration:none;white-space:nowrap;border-left:1px solid currentColor;padding-left:16px;line-height:1.1}
 .back-link:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}
-.guided-views,.guided-views *:not(svg):not(svg *),.toolbar button,.toolbar a{font-family:'Inter',system-ui,sans-serif!important;letter-spacing:0!important}
-.cards,.cards *{font-family:'Inter',system-ui,sans-serif!important;letter-spacing:0!important}
+.guided-views,.guided-views *:not(svg):not(svg *),.toolbar,.toolbar *,.cards,.cards *,.view-menu-btn{font-family:'Inter',system-ui,sans-serif!important;letter-spacing:0!important}
 .cards h3{font-weight:600!important}
-@media (max-width:900px){
-.toolbar{position:static!important;display:flex!important;flex-wrap:wrap;gap:8px;justify-content:flex-start;padding:14px 16px 0!important;margin:0!important;width:auto!important}
-.toolbar button{font-size:13px!important;padding:7px 11px!important;min-height:0!important}
-.header-row{flex-wrap:wrap;min-height:0;row-gap:4px}
-.back-link{border-left:0;padding-left:0;flex-basis:100%;margin-left:20px}
+/* options menu */
+.view-menu-btn{position:absolute;top:18px;right:20px;z-index:210;display:inline-flex;align-items:center;gap:8px;
+  font-size:13.5px;font-weight:500;padding:8px 13px;border-radius:10px;cursor:pointer;
+  background:rgba(255,255,255,.92);color:#1e293b;border:1px solid #cbd5e1;box-shadow:0 1px 2px rgba(15,23,42,.06);transition:background .15s,border-color .15s}
+.view-menu-btn:hover{border-color:#94a3b8}
+.view-menu-btn .dots{display:inline-flex;gap:3px}
+.view-menu-btn .dots i{width:4px;height:4px;border-radius:50%;background:currentColor;display:block}
+.view-menu-btn .chev{width:8px;height:8px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+html.menu-open .view-menu-btn .chev{transform:rotate(-135deg) translateY(-1px)}
+html[data-theme="dark"] .view-menu-btn{background:rgba(15,23,42,.95);color:#e2e8f0;border-color:#334155}
+html[data-theme="dark"] .view-menu-btn:hover{border-color:#64748b}
+.toolbar{display:none!important}
+html.menu-open .toolbar{display:flex!important;position:absolute!important;top:62px!important;right:20px!important;left:auto!important;bottom:auto!important;
+  flex-direction:column!important;align-items:stretch!important;gap:6px!important;padding:8px!important;width:220px!important;border-radius:12px;
+  background:rgba(255,255,255,.98);border:1px solid #e2e8f0;box-shadow:0 12px 32px rgba(15,23,42,.14);z-index:205!important}
+html[data-theme="dark"].menu-open .toolbar{background:rgba(15,23,42,.98);border-color:#334155;box-shadow:0 12px 32px rgba(0,0,0,.5)}
+html.menu-open .toolbar > button,html.menu-open .toolbar > div > button{width:100%!important;justify-content:flex-start!important;box-shadow:none!important}
+html.menu-open .toolbar > div{width:100%}
+html.menu-open .toolbar .toolbar-chevron{margin-left:auto}
+@media (max-width:640px){
+  .header-row{padding-right:64px;flex-wrap:wrap;row-gap:4px}
+  .back-link{border-left:0;padding-left:0;flex-basis:100%;margin-left:22px}
+  .view-menu-btn{top:14px;right:14px;padding:9px 11px}
+  .view-menu-btn .lbl,.view-menu-btn .chev{display:none}
+  html.menu-open .toolbar{top:58px!important;right:14px!important}
 }
-</style></head>
+.header{padding-right:0!important}.header,.header-row{max-width:none!important;width:100%!important;box-sizing:border-box}
+.header-row{flex-wrap:wrap;row-gap:4px}
+.header-row h1{white-space:nowrap}
+@media (max-width:640px){.header-row{padding-right:64px}.header-row h1{white-space:normal}}</style></head>
 <body>
   <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
        Motion appears only for trace-enabled artifacts and has no shortcut;
        Keyboard: T toggles theme, S cycles style, F toggles the stage, E opens export. -->
-  <div class="toolbar" role="toolbar" aria-label="Diagram actions">
+  <button id="view-menu-btn" class="view-menu-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="diagram-options" aria-label="View options"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="lbl">View options</span><span class="chev" aria-hidden="true"></span></button>
+    <div class="toolbar" id="diagram-options" role="toolbar" aria-label="Diagram actions">
     <button id="btn-theme" type="button"
             title="Toggle theme (T)"
             aria-label="Toggle color theme"
@@ -15064,5 +15086,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       }
     });
   </script>
-</body>
+<script id="site-menu">(function(){
+var b=document.getElementById('view-menu-btn'),h=document.documentElement,t=document.querySelector('.toolbar');
+function set(o){h.classList.toggle('menu-open',o);b.setAttribute('aria-expanded',o?'true':'false');}
+b.addEventListener('click',function(e){e.stopPropagation();set(!h.classList.contains('menu-open'));});
+document.addEventListener('click',function(e){if(h.classList.contains('menu-open')&&!t.contains(e.target)&&e.target!==b){set(false);}},true);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&h.classList.contains('menu-open')){set(false);b.focus();}});
+})();</script></body>
 </html>
